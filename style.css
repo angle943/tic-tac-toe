@@ -65,6 +65,11 @@ body {
   width: 200px;
 }
 
+.x,
+.o {
+  cursor: default;
+}
+
 .x::after {
   content: '×';
   font-size: 200px;

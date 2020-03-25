@@ -10,7 +10,6 @@ const oSymbol = '○';
 // game variables
 let gameIsLive = true;
 let xIsNext = true;
-let winner = null;
 
 
 // functions
@@ -18,11 +17,10 @@ const letterToSymbol = (letter) => letter === 'x' ? xSymbol : oSymbol;
 
 const handleWin = (letter) => {
   gameIsLive = false;
-  winner = letter;
-  if (winner === 'x') {
-    statusDiv.innerHTML = `${letterToSymbol(winner)} has won!`;
+  if (letter === 'x') {
+    statusDiv.innerHTML = `${letterToSymbol(letter)} has won!`;
   } else {
-    statusDiv.innerHTML = `<span>${letterToSymbol(winner)} has won!</span>`;
+    statusDiv.innerHTML = `<span>${letterToSymbol(letter)} has won!</span>`;
   }
 };
 
@@ -96,18 +94,18 @@ const checkGameStatus = () => {
 const handleReset = () => {
   xIsNext = true;
   statusDiv.innerHTML = `${xSymbol} is next`;
-  winner = null;
   for (const cellDiv of cellDivs) {
     cellDiv.classList.remove('x');
     cellDiv.classList.remove('o');
     cellDiv.classList.remove('won');
   }
+  gameIsLive = true;
 };
 
 const handleCellClick = (e) => {
   const classList = e.target.classList;
 
-  if (classList[1] === 'x' || classList[1] === 'o') {
+  if (!gameIsLive || classList[1] === 'x' || classList[1] === 'o') {
     return;
   }
 
